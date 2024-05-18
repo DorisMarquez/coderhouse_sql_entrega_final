@@ -86,7 +86,7 @@ Nuestro equipo de desarrollo está trabajando en un sistema de gestión del inve
 
 ## Listado de Tablas y Descripción
 
-El script para la creación y definición de la base de datos se encuentra en el archivo database_structure.sql en la carpeta structure.
+El script para la creación y definición de la base de datos se encuentra en el archivo [database_structure.sql](./structure/database_structure.sql) en la carpeta structure.
 
 A constinuación se presenta la descripción de los tipos de datos de cada una de las tablas de la base de datos.
 
