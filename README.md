@@ -24,10 +24,10 @@ Fecha : 18-05-2024
  - [Listado de Tablas y Descripción](#listado-de-tablas-y-descripción)
  - [Ingesta de Datos](#ingesta-de-datos)
  - [Objetos de la Base de Datos](#objetos-de-la-base-de-datos)
-   - [Documentación de Vistas](#documentación-de-vistas)
    - [Documentación de Funciones](#documentación-de-funciones)
    - [Documentación de Triggers](#documentación-de-triggers)
    - [Documentación de Procedimientos Almacenados](#documentación-de-procedimientos-almacenados)
+   - [Documentación de Vistas](#documentación-de-vistas)
    - [Roles, Permisos y Usuarios](#roles-permisos-y-usuarios)
  - [Backup de la Base de Datos](#backup-de-la-base-de-datos)
  - [Herramientas y Tecnologías Usadas](#herramientas-y-tecnologías-usadas)
@@ -269,209 +269,6 @@ A continuación, se desarrolla la documentación de cada uno de ellos.
 
 ---
 
-### Documentación de Vistas
-
----
-
-### Listado de Vistas
-
-* Vista 1 :  vw_1_informe_inventario
-* Vista 2 :  vw_2_valor_inventario
-* Vista 3 :  vw_3_valor_total_inventario
-* Vista 4 :  vw_4_productos_inventario
-* Vista 5 :  vw_5_entradas_productos
-* Vista 6 :  vw_6_salidas_productos
-
----
-
-### Vista 1 :  `vw_1_informe_inventario`
-
-**Descripción:** 
-
-Esta vista muestra la informacion de todos los productos del inventario, agregando además datos de las tablas productos, marca y categoria para mayor claridad de quien recibe el informe.
-
-
-**Columnas:**
-
-| Columna            | Descripción                                            | Origen           |
-|--------------------|--------------------------------------------------------|------------------|
-| id_producto        | id del producto                                        | tabla inventario |
-| descripcion        | descripción del producto                               | tabla productos  |
-| marca              | marca del producto                                     | tabla marcas     |
-| categoria          | categoria del producto                                 | tabla categorias |
-| inventario_inicial | cantidad de productos al iniciar el inventario         | tabla inventario |
-| total_entradas     | cantidad total de productos que entraron al inventario | tabla inventario |
-| total_salidas      | cantidad total de productos que salieron al inventario | tabla inventario |
-| stock              | cantidad de artículos disponibles                      | tabla inventario |
-| ultimo_precio_$    | último precio del producto registrado                  | tabla inventario |
-
-
-**Ejemplo de consulta:** 
-
-```sql
-SELECT * 
-FROM control_inventario.vw_1_informe_inventario;
-```
-
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 1](./images/vista_1.png)
-
----
-
-### Vista 2 :  `vw_2_valor_inventario`
-
-**Descripción:** 
-
-Esta vista muestra el valor del inventario y el porcentaje que corresponde a cada porducto ordenado en forma descendente.
-
-**Columnas:**
-
-| Columna                     | Descripción                                                                                                                                                                                                                                                            | Origen                      |
-|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
-| id_producto                 | id del producto                                                                                                                                                                                                                                                        | tabla inventario            |
-| descripcion                 | descripción del producto                                                                                                                                                                                                                                               | tabla productos             |
-| stock                       | cantidad de artículos disponibles                                                                                                                                                                                                                                      | tabla inventario            |
-| ultimo_precio_$             |  último precio registrado del producto                                                                                                                                                                                                                                   | tabla inventario            |
-| valor_inventario            | campo calculado según la fórmula: valor_inventario = stock * ultimo_precio_$                                                                                                                                                                                           | campo calculado en la vista |
-| porcentaje_valor_inventario | corresponde al porcentaje que cada artículo aporta al total del valor del inventario. Se calcula por la formula: % valor inventario = valor_inventario / valor total del inventario  | campo calculado en la vista. El valor total del inventario se calcula en la función fn_4_valor_total_inventario() |
-
-
-**Ejemplo de consulta:**
-
-```sql
-SELECT * 
-FROM control_inventario.vw_2_valor_inventario;
-
-```
-
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 2](./images/vista_2.png)
-
----
-
-
-### Vista 3 :  `vw_3_valor_total_inventario`
-
-**Descripción:** 
-
-Esta vista muestra el valor total del inventario.
-
-**Columnas:**
-
-| Columna                | Descripción                                                                                | Origen                                                                                |
-|------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| valor_total_inventario | se calcula por medio de la función SUM de la siguiente forma: SUM(stock * ultimo_precio_$) | campo calculado en la vista. Los valores de stock y ultimo_precio_$ provienen de la tabla inventario |
-
-**Ejemplo de consulta:**
-
-```sql
-SELECT * 
-FROM control_inventario.vw_3_valor_total_inventario;
-```
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 3](./images/vista_3.png)
-
----
-
-### Vista 4 :  `vw_4_productos_inventario`
-
-**Descripción:** 
-
-Esta vista muestra todos los productos del inventario, incluyendo descripción, marca, categoría, ubicación y stock.
-
-**Columnas:**
-
-| Columna     | Descripción                               | Origen            |
-|-------------|-------------------------------------------|-------------------|
-| id_producto | id del producto                           | tabla inventario  |
-| descripcion | descripción del producto                  | tabla productos   |
-| marca       | marca del producto                        | tabla marcas      |
-| categoria   | categoría del producto                    | tabla categorias  |
-| ubicacion   | ubicación del producto dentro del almacén | tabla ubicaciones |
-| stock       | cantidad de artículos disponibles         | tabla inventario  |
-
-
-**Ejemplo de consulta:**
-
-```sql
-SELECT * 
-FROM control_inventario.vw_4_productos_inventario;
-```
-
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 4](./images/vista_4.png)
-
----
-
-### Vista 5 :  `vw_5_entradas_productos`
-
-**Descripción:** 
-
-Esta vista muestra el registro de todas las entradas de productos al almacén.
-
-**Columnas:**
-
-| Columna     | Descripción                                         | Origen                 |
-|-------------|-----------------------------------------------------|------------------------|
-| id_entrada  | id del registro de entrada de productos             | tabla entradas         |
-| fecha       | fecha en la que se registra la entrada de productos | tabla entradas         |
-| id_producto | id del producto                                     | tabla detalle_entradas |
-| descripcion | descripción del producto                            | tabla productos        |
-| cantidad    | cantidad de productos que ingresaron                | tabla detalle_entradas |
-
-
-**Ejemplo de consulta:**
-
-```sql
-SELECT * 
-FROM control_inventario.vw_5_entradas_productos;
-```
-
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 5](./images/vista_5.png)
-
----
-
-### Vista 6 :  `vw_6_salidas_productos`
-
-**Descripción:**
-
-Esta vista muestra el registro de todas las salidas de productos del almacén.
-
-**Columnas:**
-
-
-| Columna     | Descripción                                        | Origen                |
-|-------------|----------------------------------------------------|-----------------------|
-| id_salida   | id del registro de salida de productos             | tabla salidas         |
-| fecha       | fecha en la que se registra la salida de productos | tabla salidas         |
-| id_producto | id del producto                                    | tabla detalle_salidas |
-| descripcion | descripción del producto                           | tabla productos       |
-| cantidad    | cantidad de productos que salieron                 | tabla detalle_salidas |
-
-
-**Ejemplo de consulta:**
-
-```sql
-SELECT * 
-FROM control_inventario.vw_6_salidas_productos;
-```
-
-**Muestra del resultado de la consulta:**
-
-![Consulta vista 6](./images/vista_6.png)
-
----
-
-[<- volver al índice](#indice)
-
----
-
 
 ### Documentación de Funciones 
 
@@ -688,9 +485,7 @@ Este trigger se ejecuta después que se inserta un registro en la tabla detalle_
 * Se inserta una nueva entrada en la tabla detalle_entradas.
 * El trigger calcula el nuevo valor del campo ultimo_precio_$ mediante la funcion fn_3_actualizar_ultimo_precio para el id correspondiente y actualiza la tabla inventario. 
 
-
 ---
-
 
 [<- volver al índice](#indice)
 
@@ -866,6 +661,210 @@ CALL sp_3_registrar_salida(1, 'S-1', 10, 'dia', 18, 4, 6, 1, 7, 4, 8, 6, 9 );
 
 ---
 
+
+[<- volver al índice](#indice)
+
+---
+
+
+### Documentación de Vistas
+
+---
+
+### Listado de Vistas
+
+* Vista 1 :  vw_1_informe_inventario
+* Vista 2 :  vw_2_valor_inventario
+* Vista 3 :  vw_3_valor_total_inventario
+* Vista 4 :  vw_4_productos_inventario
+* Vista 5 :  vw_5_entradas_productos
+* Vista 6 :  vw_6_salidas_productos
+
+---
+
+### Vista 1 :  `vw_1_informe_inventario`
+
+**Descripción:** 
+
+Esta vista muestra la informacion de todos los productos del inventario, agregando además datos de las tablas productos, marca y categoria para mayor claridad de quien recibe el informe.
+
+
+**Columnas:**
+
+| Columna            | Descripción                                            | Origen           |
+|--------------------|--------------------------------------------------------|------------------|
+| id_producto        | id del producto                                        | tabla inventario |
+| descripcion        | descripción del producto                               | tabla productos  |
+| marca              | marca del producto                                     | tabla marcas     |
+| categoria          | categoria del producto                                 | tabla categorias |
+| inventario_inicial | cantidad de productos al iniciar el inventario         | tabla inventario |
+| total_entradas     | cantidad total de productos que entraron al inventario | tabla inventario |
+| total_salidas      | cantidad total de productos que salieron al inventario | tabla inventario |
+| stock              | cantidad de artículos disponibles                      | tabla inventario |
+| ultimo_precio_$    | último precio del producto registrado                  | tabla inventario |
+
+
+**Ejemplo de consulta:** 
+
+```sql
+SELECT * 
+FROM control_inventario.vw_1_informe_inventario;
+```
+
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 1](./images/vista_1.png)
+
+---
+
+### Vista 2 :  `vw_2_valor_inventario`
+
+**Descripción:** 
+
+Esta vista muestra el valor del inventario y el porcentaje que corresponde a cada porducto ordenado en forma descendente.
+
+**Columnas:**
+
+| Columna                     | Descripción                                                                                                                                                                                                                                                            | Origen                      |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
+| id_producto                 | id del producto                                                                                                                                                                                                                                                        | tabla inventario            |
+| descripcion                 | descripción del producto                                                                                                                                                                                                                                               | tabla productos             |
+| stock                       | cantidad de artículos disponibles                                                                                                                                                                                                                                      | tabla inventario            |
+| ultimo_precio_$             |  último precio registrado del producto                                                                                                                                                                                                                                   | tabla inventario            |
+| valor_inventario            | campo calculado según la fórmula: valor_inventario = stock * ultimo_precio_$                                                                                                                                                                                           | campo calculado en la vista |
+| porcentaje_valor_inventario | corresponde al porcentaje que cada artículo aporta al total del valor del inventario. Se calcula por la formula: % valor inventario = valor_inventario / valor total del inventario  | campo calculado en la vista. El valor total del inventario se calcula en la función fn_4_valor_total_inventario() |
+
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * 
+FROM control_inventario.vw_2_valor_inventario;
+
+```
+
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 2](./images/vista_2.png)
+
+---
+
+
+### Vista 3 :  `vw_3_valor_total_inventario`
+
+**Descripción:** 
+
+Esta vista muestra el valor total del inventario.
+
+**Columnas:**
+
+| Columna                | Descripción                                                                                | Origen                                                                                |
+|------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| valor_total_inventario | se calcula por medio de la función SUM de la siguiente forma: SUM(stock * ultimo_precio_$) | campo calculado en la vista. Los valores de stock y ultimo_precio_$ provienen de la tabla inventario |
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * 
+FROM control_inventario.vw_3_valor_total_inventario;
+```
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 3](./images/vista_3.png)
+
+---
+
+### Vista 4 :  `vw_4_productos_inventario`
+
+**Descripción:** 
+
+Esta vista muestra todos los productos del inventario, incluyendo descripción, marca, categoría, ubicación y stock.
+
+**Columnas:**
+
+| Columna     | Descripción                               | Origen            |
+|-------------|-------------------------------------------|-------------------|
+| id_producto | id del producto                           | tabla inventario  |
+| descripcion | descripción del producto                  | tabla productos   |
+| marca       | marca del producto                        | tabla marcas      |
+| categoria   | categoría del producto                    | tabla categorias  |
+| ubicacion   | ubicación del producto dentro del almacén | tabla ubicaciones |
+| stock       | cantidad de artículos disponibles         | tabla inventario  |
+
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * 
+FROM control_inventario.vw_4_productos_inventario;
+```
+
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 4](./images/vista_4.png)
+
+---
+
+### Vista 5 :  `vw_5_entradas_productos`
+
+**Descripción:** 
+
+Esta vista muestra el registro de todas las entradas de productos al almacén.
+
+**Columnas:**
+
+| Columna     | Descripción                                         | Origen                 |
+|-------------|-----------------------------------------------------|------------------------|
+| id_entrada  | id del registro de entrada de productos             | tabla entradas         |
+| fecha       | fecha en la que se registra la entrada de productos | tabla entradas         |
+| id_producto | id del producto                                     | tabla detalle_entradas |
+| descripcion | descripción del producto                            | tabla productos        |
+| cantidad    | cantidad de productos que ingresaron                | tabla detalle_entradas |
+
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * 
+FROM control_inventario.vw_5_entradas_productos;
+```
+
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 5](./images/vista_5.png)
+
+---
+
+### Vista 6 :  `vw_6_salidas_productos`
+
+**Descripción:**
+
+Esta vista muestra el registro de todas las salidas de productos del almacén.
+
+**Columnas:**
+
+
+| Columna     | Descripción                                        | Origen                |
+|-------------|----------------------------------------------------|-----------------------|
+| id_salida   | id del registro de salida de productos             | tabla salidas         |
+| fecha       | fecha en la que se registra la salida de productos | tabla salidas         |
+| id_producto | id del producto                                    | tabla detalle_salidas |
+| descripcion | descripción del producto                           | tabla productos       |
+| cantidad    | cantidad de productos que salieron                 | tabla detalle_salidas |
+
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * 
+FROM control_inventario.vw_6_salidas_productos;
+```
+
+**Muestra del resultado de la consulta:**
+
+![Consulta vista 6](./images/vista_6.png)
+
+---
 
 [<- volver al índice](#indice)
 
