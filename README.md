@@ -22,7 +22,7 @@ Fecha : 18-05-2024
  - [Modelo de Negocio](#modelo-de-negocio)
  - [Diagrama Entidad-Relación](#diagrama-entidad-relación)
  - [Listado de Tablas y Descripción](#listado-de-tablas-y-descripción)
- - [Estructura e Ingesta de Datos](#estructura-e-ingesta-de-datos)
+ - [Ingesta de Datos](#ingesta-de-datos)
  - [Objetos de la Base de Datos](#objetos-de-la-base-de-datos)
    - [Documentación de Vistas](#documentación-de-vistas)
    - [Documentación de Funciones](#documentación-de-funciones)
@@ -240,7 +240,7 @@ A constinuación se presenta la descripción de cada una de las tablas de la bas
 ---
 
 
-## Estructura e Ingesta de Datos
+## Ingesta de Datos
 
 * La ingesta de datos en las tablas dimensionales: areas, categorias, ubicaciones, destinos, marcas y empleados, se realiza por medio del archivo population.sql que se encuentra en la carpeta structure.
 * La ingesta de datos de las tablas productos e inicio de la tabla inventario para cada producto ingresado se realiza por medio del procedimiento sp_1_insertar_producto.
