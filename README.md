@@ -121,10 +121,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `entradas`**
-
 
 
 | Campo                   | Tipo        | Null | Key | Default   | Extra             |
@@ -136,10 +133,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `detalle_entradas`**
-
 
 
 | Campo           | Tipo          | Null | Key | Default | Extra |
@@ -152,10 +146,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `salidas`**
-
 
 
 | Campo                   | Tipo                | Null | Key | Default   | Extra             |
@@ -171,10 +162,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `detalle_salidas`**
-
 
 
 | Campo         | Tipo        | Null | Key | Default | Extra |
@@ -186,10 +174,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `categorias`**
-
 
 
 | Campo        | Tipo        | Null | Key | Default | Extra          |
@@ -199,11 +184,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `areas`**
-
-
 
 | Campo   | Tipo        | Null | Key | Default | Extra          |
 |---------|-------------|------|-----|---------|----------------|
@@ -213,11 +194,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `empleados`**
-
-
 
 | Campo             | Tipo         | Null | Key | Default | Extra          |
 |-------------------|--------------|------|-----|---------|----------------|
@@ -230,8 +207,6 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `ubicaciones`**
 
 
@@ -242,11 +217,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `destinos`**
-
-
 
 | Campo      | Tipo        | Null | Key | Default | Extra          |
 |------------|-------------|------|-----|---------|----------------|
@@ -255,11 +226,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-
-
 **Tabla `marcas`**
-
-
 
 | Campo    | Tipo        | Null | Key | Default | Extra          |
 |----------|-------------|------|-----|---------|----------------|
@@ -271,7 +238,6 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 [<- volver al índice](#indice)
 
 ---
-
 
 
 ## Estructura e Ingesta de Datos
