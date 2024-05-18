@@ -247,7 +247,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 * La ingesta de datos en las tablas entradas y detalle_entradas se realiza por medio del procedimiento sp_2_registrar_entrada.
 * La ingesta de datos en las tablas salidas y detalle_salidas se realiza por medio del procedimiento sp_3_registrar_salida.
 
-Dichos procedimientos se encuentran en el archivo stored_procedures.sql en la carpeta objects.
+Dichos procedimientos se encuentran en el archivo c_stored_procedures.sql en la carpeta objects.
 
 ---
 
@@ -259,11 +259,13 @@ Dichos procedimientos se encuentran en el archivo stored_procedures.sql en la ca
 ## Objetos de la Base de Datos
 
 Los objetos de la base de dajos se encuentran en la carpeta objects, con un archivo sql para cada tipo de objeto, a saber:
-- Funciones : 1_funtions.sql
-- Triggers : 2_triggers.sql
-- Prodecimientos almacenados : 3_stored_procedures.sql
-- Vistas : 4_views.sql
-- Roles, permisos y usuarios : 5_roles_users.sql 
+- Funciones : a_funtions.sql
+- Triggers : b_triggers.sql
+- Prodecimientos almacenados : c_stored_procedures.sql
+- Vistas : d_views.sql
+- Roles, permisos y usuarios : e_roles_users.sql 
+
+A continuación, se desarrolla la documentación de cada uno de ellos.
 
 ---
 
@@ -291,8 +293,6 @@ Esta vista muestra la informacion de todos los productos del inventario, agregan
 
 **Columnas:**
 
-
-
 | Columna            | Descripción                                            | Origen           |
 |--------------------|--------------------------------------------------------|------------------|
 | id_producto        | id del producto                                        | tabla inventario |
@@ -304,7 +304,6 @@ Esta vista muestra la informacion de todos los productos del inventario, agregan
 | total_salidas      | cantidad total de productos que salieron al inventario | tabla inventario |
 | stock              | cantidad de artículos disponibles                      | tabla inventario |
 | ultimo_precio_$    | último precio del producto registrado                  | tabla inventario |
-
 
 
 **Ejemplo de consulta:** 
@@ -328,8 +327,6 @@ Esta vista muestra el valor del inventario y el porcentaje que corresponde a cad
 
 **Columnas:**
 
-
-
 | Columna                     | Descripción                                                                                                                                                                                                                                                            | Origen                      |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
 | id_producto                 | id del producto                                                                                                                                                                                                                                                        | tabla inventario            |
@@ -338,9 +335,6 @@ Esta vista muestra el valor del inventario y el porcentaje que corresponde a cad
 | ultimo_precio_$             |  último precio registrado del producto                                                                                                                                                                                                                                   | tabla inventario            |
 | valor_inventario            | campo calculado según la fórmula: valor_inventario = stock * ultimo_precio_$                                                                                                                                                                                           | campo calculado en la vista |
 | porcentaje_valor_inventario | corresponde al porcentaje que cada artículo aporta al total del valor del inventario. Se calcula por la formula: % valor inventario = valor_inventario / valor total del inventario  | campo calculado en la vista. El valor total del inventario se calcula en la función fn_4_valor_total_inventario() |
-
-
-
 
 
 **Ejemplo de consulta:**
@@ -366,13 +360,9 @@ Esta vista muestra el valor total del inventario.
 
 **Columnas:**
 
-
-
 | Columna                | Descripción                                                                                | Origen                                                                                |
 |------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | valor_total_inventario | se calcula por medio de la función SUM de la siguiente forma: SUM(stock * ultimo_precio_$) | campo calculado en la vista. Los valores de stock y ultimo_precio_$ provienen de la tabla inventario |
-
-
 
 **Ejemplo de consulta:**
 
@@ -394,8 +384,6 @@ Esta vista muestra todos los productos del inventario, incluyendo descripción, 
 
 **Columnas:**
 
-
-
 | Columna     | Descripción                               | Origen            |
 |-------------|-------------------------------------------|-------------------|
 | id_producto | id del producto                           | tabla inventario  |
@@ -404,7 +392,6 @@ Esta vista muestra todos los productos del inventario, incluyendo descripción, 
 | categoria   | categoría del producto                    | tabla categorias  |
 | ubicacion   | ubicación del producto dentro del almacén | tabla ubicaciones |
 | stock       | cantidad de artículos disponibles         | tabla inventario  |
-
 
 
 **Ejemplo de consulta:**
@@ -426,10 +413,7 @@ FROM control_inventario.vw_4_productos_inventario;
 
 Esta vista muestra el registro de todas las entradas de productos al almacén.
 
-
 **Columnas:**
-
-
 
 | Columna     | Descripción                                         | Origen                 |
 |-------------|-----------------------------------------------------|------------------------|
@@ -438,7 +422,6 @@ Esta vista muestra el registro de todas las entradas de productos al almacén.
 | id_producto | id del producto                                     | tabla detalle_entradas |
 | descripcion | descripción del producto                            | tabla productos        |
 | cantidad    | cantidad de productos que ingresaron                | tabla detalle_entradas |
-
 
 
 **Ejemplo de consulta:**
@@ -463,7 +446,6 @@ Esta vista muestra el registro de todas las salidas de productos del almacén.
 **Columnas:**
 
 
-
 | Columna     | Descripción                                        | Origen                |
 |-------------|----------------------------------------------------|-----------------------|
 | id_salida   | id del registro de salida de productos             | tabla salidas         |
@@ -471,7 +453,6 @@ Esta vista muestra el registro de todas las salidas de productos del almacén.
 | id_producto | id del producto                                    | tabla detalle_salidas |
 | descripcion | descripción del producto                           | tabla productos       |
 | cantidad    | cantidad de productos que salieron                 | tabla detalle_salidas |
-
 
 
 **Ejemplo de consulta:**
@@ -517,7 +498,6 @@ Esta función es llamada en el trigger tr_actualizar_total_entradas.
 **Parámetros:**
 
 
-
 | Parámetro     | Descripción                               | 
 |-------------|-------------------------------------------|
 | id_prod | id del producto tipo INT                         | 
@@ -538,7 +518,6 @@ SELECT fn_1_total_entradas(1);
 **Muestra del resultado de la consulta:**
 
 ![Consulta función 1](./images/funcion_1.png)
-
 
 
 ---
@@ -637,7 +616,6 @@ SELECT fn_4_valor_total_inventario();
 ![Consulta función 4](./images/funcion_4.png)
 
 ---
-
 
 [<- volver al índice](#indice)
 
@@ -751,7 +729,6 @@ Este procedimiento es usado para el llenado de las tablas productos e inicar el 
 | inventario_inicial | cantidad de productos al iniciar el inventario | entrada           |
 
 
-
 **Retorno:**
 
 * Al llamar al procedimiento se ingresa un nuevo registro en la tabla productos y en la tabla inventario para el producto con el id indicado.
@@ -786,8 +763,6 @@ Este procedimiento está diseñado para ingresar 3 productos por cada entrada.
 
 **Parámetros:**
 
-
-
 | Parámetro                | Descripción                                                 | Tipo de parámetro |
 |--------------------------|-------------------------------------------------------------|-------------------|
 | id_entrada               | id del registro de entrada de productos                     | entrada           |
@@ -804,7 +779,6 @@ Este procedimiento está diseñado para ingresar 3 productos por cada entrada.
 | precio_compra_$_c        | precio de compra del tercer producto                        | entrada           |
 
 
-
 **Retorno:**
 
 * Se crea un nuevo registro en la tabla entradas y 3 registros en la tabla detalle_entradas.
@@ -814,7 +788,6 @@ Este procedimiento está diseñado para ingresar 3 productos por cada entrada.
 ```sql
 CALL sp_2_registrar_entrada( 1, 'G-1', 10, 1, 16, 8, 4, 15, 46, 6, 16, 13 );
 ```
-
 
 | Parámetro                | Valores ejemplo |
 |--------------------------|-----------------|
@@ -909,7 +882,7 @@ Se generaron tres roles:
 
 Además, tomando en cuenta la tabla empleados, se crearon dos usuarios con el primer rol, el usuario del jefe de almacén con el segundo rol y los cuatro usuarios para los encargados de almacén con el tercer rol.
 
-Todos los roles, permisos y usuarios se definen en el archivo roles_users.sql.
+Todos los roles, permisos y usuarios se definen en el archivo e_roles_users.sql.
 
 A constinuación, se muestra parte de las pruebas de conexión realizadas:
 
@@ -927,7 +900,6 @@ A constinuación, se muestra parte de las pruebas de conexión realizadas:
 
 
 ---
-
 
 [<- volver al índice](#indice)
 
@@ -985,14 +957,13 @@ También se puede generar un backup a través del comando `make backup-db` que p
 
 [<- volver al índice](#indice)
 
-
-
 ---
+
 ## Formato de Entrega 
 
-El proyecto final de la base de datos control_inventario se entraga por medio de un link a un repositorio GitHub donde se encuentra la carpeta control_inventario+Marquez, la cual está conformada por las siguientes subcarpetas y archivos:
+El proyecto final de la base de datos control_inventario se entraga por medio de un link a un repositorio GitHub (https://github.com/DorisMarquez/coderhouse_sql_entrega_final), el cual está conformado por las siguientes subcarpetas y archivos:
 
-carpeta : control_inventario+Marquez
+repositorio : coderhouse_sql_entrega_final
     
     subcarpeta backup :
         2024-05-18_backup_01.sql
@@ -1014,11 +985,11 @@ carpeta : control_inventario+Marquez
         vista_6.png
 
     subcarpeta objects :
-        1_functions.sql
-        2_triggers.sql
-        3_stored_procedures.sql
-        4_views.sql
-        5_roles_users.sql    
+        a_functions.sql
+        b_triggers.sql
+        c_stored_procedures.sql
+        d_views.sql
+        e_roles_users.sql    
     
     subcarpeta structure :
         database_structure.sql
