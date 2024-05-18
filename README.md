@@ -86,9 +86,9 @@ Nuestro equipo de desarrollo está trabajando en un sistema de gestión del inve
 
 ## Listado de Tablas y Descripción
 
-El script para la creación y definición de la base de datos se encuentra en el archivo [database_structure.sql](./structure/database_structure.sql) en la carpeta structure.
+El script para la creación y definición de la base de datos se encuentra en el archivo database_structure.sql, ubicado en la carpeta structure.
 
-A constinuación se presenta la descripción de los tipos de datos de cada una de las tablas de la base de datos.
+A constinuación se presenta la descripción de cada una de las tablas de la base de datos.
 
 ---
 
@@ -714,7 +714,7 @@ Este trigger se ejecuta después que se inserta un registro en la tabla detalle_
 
 Este procedimiento permite insertar un nuevo producto en la tabla productos e inciar el inventario del mismo en la tabla inventario.
 
-Este procedimiento es usado para el llenado de las tablas productos e inicar el inventario de los mismos en el script population.sql.
+Este procedimiento es usado para el llenado de las tablas productos e inicar el inventario de los mismos, y se encuentra en el archivo c_stored_procedures.sql.
 
 **Parámetros:**
 
@@ -757,7 +757,7 @@ CALL sp_1_insertar_producto(1, 'descripción_producto_1', 4, 2, 1, 190);
 
 Este procedimiento permite registrar las entradas de productos en la tabla entradas y así con los detalles de las mismas en la tabla detalle_entradas.
 
-Este procedimiento es usado para el llenado de las tablas entradas y detalle_entradas en el script population.sql.
+Este procedimiento es usado para el llenado de las tablas entradas y detalle_entradas, y se encuentra en el archivo c_stored_procedures.sql.
 
 Este procedimiento está diseñado para ingresar 3 productos por cada entrada.
 
@@ -812,7 +812,7 @@ CALL sp_2_registrar_entrada( 1, 'G-1', 10, 1, 16, 8, 4, 15, 46, 6, 16, 13 );
 
 Este procedimiento permite registrar las salidas de productos en la tabla salidas y así con los detalles de las mismas en la tabla detalle_salidas.
 
-Este procedimiento es usado para el llenado de las tablas salidas y detalle_salidas en el script population.sql.
+Este procedimiento es usado para el llenado de las tablas salidas y detalle_salidas, y se encuentra en el archivo c_stored_procedures.sql.
 
 Este procedimiento está diseñado para ingresar 3 productos por cada salida.
 
@@ -880,7 +880,7 @@ Se generaron tres roles:
 2. `role_jefe_almacen`: Este rol tiene permisos para generar CRUD en toda la base de datos.
 3. `role_encargado_almacen`: Este rol tiene permisos para leer, ingresar y actualizar la tabla prodcutos, la columna inventario_inicial de la tabla inventario, y las tablas entradas, detalle_entradas, salidas y detalle_salidas.
 
-Además, tomando en cuenta la tabla empleados, se crearon dos usuarios con el primer rol, el usuario del jefe de almacén con el segundo rol y los cuatro usuarios para los encargados de almacén con el tercer rol.
+Además, tomando en cuenta la tabla empleados, se crearon dos usuarios con el primer rol, el usuario del jefe de almacén con el segundo rol y cuatro usuarios para los encargados de almacén con el tercer rol.
 
 Todos los roles, permisos y usuarios se definen en el archivo e_roles_users.sql.
 
@@ -914,7 +914,6 @@ También se puede generar un backup a través del comando `make backup-db` que p
 
 ---
 
-
 [<- volver al índice](#indice)
 
 ---
@@ -933,16 +932,15 @@ También se puede generar un backup a través del comando `make backup-db` que p
 
 ---
 
-
 [<- volver al índice](#indice)
 
 ---
 
 ## Instrucciones para Levantar el Proyecto en CodeSpaces GitHub
 
-* env : Archivo con contraseñas y data secretas
-* Makefile : Abstracción de creacción del proyecto
-* docker-compose.yml : Permite generar las bases de datos en forma de contenedores
+* env : archivo con contraseñas y data secretas
+* Makefile : abstracción de creacción del proyecto
+* docker-compose.yml : permite generar las bases de datos en forma de contenedores
 
 ### Pasos para arrancar el proyecto
 
