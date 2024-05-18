@@ -90,9 +90,10 @@ El script para la creación y definición de la base de datos se encuentra en el
 
 A constinuación se presenta la descripción de los tipos de datos de cada una de las tablas de la base de datos.
 
+---
+
 **Tabla `productos`**
 
----
 
 | Campo        | Tipo        | Null | Key | Default | Extra |
 |--------------|-------------|------|-----|---------|-------|
@@ -106,7 +107,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `inventario`**
 
----
+
 
 | Campo              | Tipo          | Null | Key | Default | Extra             |
 |--------------------|---------------|------|-----|---------|-------------------|
@@ -124,7 +125,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `entradas`**
 
----
+
 
 | Campo                   | Tipo        | Null | Key | Default   | Extra             |
 |-------------------------|-------------|------|-----|-----------|-------------------|
@@ -139,7 +140,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `detalle_entradas`**
 
----
+
 
 | Campo           | Tipo          | Null | Key | Default | Extra |
 |-----------------|---------------|------|-----|---------|-------|
@@ -155,7 +156,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `salidas`**
 
----
+
 
 | Campo                   | Tipo                | Null | Key | Default   | Extra             |
 |-------------------------|---------------------|------|-----|-----------|-------------------|
@@ -174,7 +175,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `detalle_salidas`**
 
----
+
 
 | Campo         | Tipo        | Null | Key | Default | Extra |
 |---------------|-------------|------|-----|---------|-------|
@@ -189,7 +190,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `categorias`**
 
----
+
 
 | Campo        | Tipo        | Null | Key | Default | Extra          |
 |--------------|-------------|------|-----|---------|----------------|
@@ -202,7 +203,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `areas`**
 
----
+
 
 | Campo   | Tipo        | Null | Key | Default | Extra          |
 |---------|-------------|------|-----|---------|----------------|
@@ -216,7 +217,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `empleados`**
 
----
+
 
 | Campo             | Tipo         | Null | Key | Default | Extra          |
 |-------------------|--------------|------|-----|---------|----------------|
@@ -233,7 +234,6 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `ubicaciones`**
 
----
 
 | Campo        | Tipo        | Null | Key | Default | Extra          |
 |--------------|-------------|------|-----|---------|----------------|
@@ -246,7 +246,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `destinos`**
 
----
+
 
 | Campo      | Tipo        | Null | Key | Default | Extra          |
 |------------|-------------|------|-----|---------|----------------|
@@ -259,7 +259,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 **Tabla `marcas`**
 
----
+
 
 | Campo    | Tipo        | Null | Key | Default | Extra          |
 |----------|-------------|------|-----|---------|----------------|
@@ -325,7 +325,7 @@ Esta vista muestra la informacion de todos los productos del inventario, agregan
 
 **Columnas:**
 
----
+
 
 | Columna            | Descripción                                            | Origen           |
 |--------------------|--------------------------------------------------------|------------------|
@@ -339,7 +339,7 @@ Esta vista muestra la informacion de todos los productos del inventario, agregan
 | stock              | cantidad de artículos disponibles                      | tabla inventario |
 | ultimo_precio_$    | último precio del producto registrado                  | tabla inventario |
 
----
+
 
 **Ejemplo de consulta:** 
 
@@ -362,7 +362,7 @@ Esta vista muestra el valor del inventario y el porcentaje que corresponde a cad
 
 **Columnas:**
 
----
+
 
 | Columna                     | Descripción                                                                                                                                                                                                                                                            | Origen                      |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
@@ -375,7 +375,7 @@ Esta vista muestra el valor del inventario y el porcentaje que corresponde a cad
 
 
 
----
+
 
 **Ejemplo de consulta:**
 
@@ -400,13 +400,13 @@ Esta vista muestra el valor total del inventario.
 
 **Columnas:**
 
----
+
 
 | Columna                | Descripción                                                                                | Origen                                                                                |
 |------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | valor_total_inventario | se calcula por medio de la función SUM de la siguiente forma: SUM(stock * ultimo_precio_$) | campo calculado en la vista. Los valores de stock y ultimo_precio_$ provienen de la tabla inventario |
 
----
+
 
 **Ejemplo de consulta:**
 
@@ -428,7 +428,7 @@ Esta vista muestra todos los productos del inventario, incluyendo descripción, 
 
 **Columnas:**
 
----
+
 
 | Columna     | Descripción                               | Origen            |
 |-------------|-------------------------------------------|-------------------|
@@ -439,7 +439,7 @@ Esta vista muestra todos los productos del inventario, incluyendo descripción, 
 | ubicacion   | ubicación del producto dentro del almacén | tabla ubicaciones |
 | stock       | cantidad de artículos disponibles         | tabla inventario  |
 
----
+
 
 **Ejemplo de consulta:**
 
@@ -463,7 +463,7 @@ Esta vista muestra el registro de todas las entradas de productos al almacén.
 
 **Columnas:**
 
----
+
 
 | Columna     | Descripción                                         | Origen                 |
 |-------------|-----------------------------------------------------|------------------------|
@@ -473,7 +473,7 @@ Esta vista muestra el registro de todas las entradas de productos al almacén.
 | descripcion | descripción del producto                            | tabla productos        |
 | cantidad    | cantidad de productos que ingresaron                | tabla detalle_entradas |
 
----
+
 
 **Ejemplo de consulta:**
 
@@ -496,7 +496,7 @@ Esta vista muestra el registro de todas las salidas de productos del almacén.
 
 **Columnas:**
 
----
+
 
 | Columna     | Descripción                                        | Origen                |
 |-------------|----------------------------------------------------|-----------------------|
@@ -506,7 +506,7 @@ Esta vista muestra el registro de todas las salidas de productos del almacén.
 | descripcion | descripción del producto                           | tabla productos       |
 | cantidad    | cantidad de productos que salieron                 | tabla detalle_salidas |
 
----
+
 
 **Ejemplo de consulta:**
 
@@ -550,13 +550,13 @@ Esta función es llamada en el trigger tr_actualizar_total_entradas.
 
 **Parámetros:**
 
----
+
 
 | Parámetro     | Descripción                               | 
 |-------------|-------------------------------------------|
 | id_prod | id del producto tipo INT                         | 
 
----
+
 
 **Retorno:**
 
@@ -784,7 +784,7 @@ Este procedimiento es usado para el llenado de las tablas productos e inicar el 
 | id_ubicacion       | id de la ubicacion del producto                | entrada           |
 | inventario_inicial | cantidad de productos al iniciar el inventario | entrada           |
 
----
+
 
 **Retorno:**
 
@@ -837,7 +837,7 @@ Este procedimiento está diseñado para ingresar 3 productos por cada entrada.
 | cantidad_c               | cantidad de productos a ingresar del tercer producto        | entrada           |
 | precio_compra_$_c        | precio de compra del tercer producto                        | entrada           |
 
----
+
 
 **Retorno:**
 
@@ -878,10 +878,7 @@ Este procedimiento es usado para el llenado de las tablas salidas y detalle_sali
 Este procedimiento está diseñado para ingresar 3 productos por cada salida.
 
 
-
 **Parámetros:**
-
-
 
 | Parámetro               | Descripción                                                    | Tipo de parámetro |
 |-------------------------|----------------------------------------------------------------|-------------------|
@@ -899,7 +896,7 @@ Este procedimiento está diseñado para ingresar 3 productos por cada salida.
 | id_producto_c           | id del tercer producto                                         | entrada           |
 | cantidad_c              | cantidad de productos solicitados del tercer producto          | entrada           |
 
----
+
 
 **Retorno:**
 
