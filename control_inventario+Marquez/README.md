@@ -76,7 +76,7 @@ Nuestro equipo de desarrollo está trabajando en un sistema de gestión del inve
 ## Diagrama Entidad-Relación
 
 
-![Diagrama Entidad-Relación](images\DER.png)
+![Diagrama Entidad-Relación](.\images\DER.png)
 
 [<- volver al índice](#indice)
 
