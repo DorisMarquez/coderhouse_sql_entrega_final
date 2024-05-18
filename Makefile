@@ -12,7 +12,7 @@ BACKUP_DIR_FILES=${BACKUP_DIR}
 DOCKER_COMPOSE_FILE=./docker-compose.yml
 DATABASE_CREATION=./structure/database_structure.sql
 DATABASE_POPULATION=./structure/population.sql
-CURDATE=$(shell date --iso=seconds)
+CURDATE := $(shell date +%Y%m%d)
 
 FILES := $(wildcard ./objects/*.sql)
 
@@ -47,7 +47,7 @@ test-db:
 	@TABLES=$$(docker exec -it $(SERVICE_NAME) mysql -u root -p$(PASSWORD) -N -B -e "USE $(DATABASE_NAME); SHOW TABLES;"); \
 	for TABLE in $$TABLES; do \
 		echo "Table: $$TABLE"; \
-		docker exec -it $(SERVICE_NAME) mysql -u root -p$(PASSWORD) -N -B -e "USE $(DATABASE_NAME); SELECT * FROM $$TABLE LIMIT 5;"; \
+		docker exec -it $(SERVICE_NAME) mysql -u root -p$(PASSWORD) -e "USE $(DATABASE_NAME); SELECT * FROM $$TABLE LIMIT 5;"; \
 		echo "----------------------------------------------"; \
 	done
 
@@ -58,7 +58,7 @@ access-db:
 backup-db:
 	@echo "Back up database by structure and data"
 	# Dump MySQL database to a file
-	docker exec -it $(SERVICE_NAME) mysqldump -u root -p$(PASSWORD) $(DATABASE) > ./$(BACKUP_DIR_FILES)/$(DATABASE)-$(CURDATE).sql
+	docker exec -it $(SERVICE_NAME) mysqldump -u root -p$(PASSWORD) $(DATABASE) > ./backup/$(BACKUP_DIR_FILES)/$(DATABASE)-$(CURDATE).sql
 
 clean-db:
 	@echo "Remove the Database"
