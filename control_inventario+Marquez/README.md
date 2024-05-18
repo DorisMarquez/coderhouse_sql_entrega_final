@@ -67,7 +67,7 @@ Nuestro equipo de desarrollo está trabajando en un sistema de gestión del inve
 
     La base de datos debe generar un informe de inventario con todos con la informacion de todos los productos, stock inicia, el total de los productos que ingresaron y salieron del almacén, y el precio de compra. También se debe calcular el valor del inventario total y porcentual.
 
-
+---
 
 [<- volver al índice](#indice)
 
@@ -78,7 +78,11 @@ Nuestro equipo de desarrollo está trabajando en un sistema de gestión del inve
 
 ![Diagrama Entidad-Relación](./images/DER.png)
 
+---
+
 [<- volver al índice](#indice)
+
+---
 
 ## Listado de Tablas y Descripción
 
@@ -86,7 +90,7 @@ El script para la creación y definición de la base de datos se encuentra en el
 
 A constinuación se presenta la descripción de los tipos de datos de cada una de las tablas de la base de datos.
 
-### Tabla `productos`
+**Tabla `productos`**
 
 ---
 
@@ -100,7 +104,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 ---
 
-### Tabla `inventario`
+**Tabla `inventario`**
 
 ---
 
@@ -118,7 +122,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `entradas`
+**Tabla `entradas`**
 
 ---
 
@@ -133,7 +137,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `detalle_entradas`
+**Tabla `detalle_entradas`**
 
 ---
 
@@ -149,7 +153,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `salidas`
+**Tabla `salidas`**
 
 ---
 
@@ -168,7 +172,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `detalle_salidas`
+**Tabla `detalle_salidas`**
 
 ---
 
@@ -183,7 +187,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `categorias`
+**Tabla `categorias`**
 
 ---
 
@@ -196,7 +200,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `areas`
+**Tabla `areas`**
 
 ---
 
@@ -210,7 +214,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `empleados`
+**Tabla `empleados`**
 
 ---
 
@@ -227,7 +231,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `ubicaciones`
+**Tabla `ubicaciones`**
 
 ---
 
@@ -240,7 +244,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `destinos`
+**Tabla `destinos`**
 
 ---
 
@@ -253,7 +257,7 @@ A constinuación se presenta la descripción de los tipos de datos de cada una d
 
 
 
-### Tabla `marcas`
+**Tabla `marcas`**
 
 ---
 
@@ -289,11 +293,11 @@ Dichos procedimientos se encuentran en el archivo stored_procedures.sql en la ca
 ## Objetos de la Base de Datos
 
 Los objetos de la base de dajos se encuentran en la carpeta objects, con un archivo sql para cada tipo de objeto, a saber:
-- funtions.sql 
-- roles_users.sql 
-- stored_procedures.sql
-- triggers.sql
-- views.sql
+- Funciones : 1_funtions.sql
+- Triggers : 2_triggers.sql
+- Prodecimientos almacenados : 3_stored_procedures.sql
+- Vistas : 4_views.sql
+- Roles, permisos y usuarios : 5_roles_users.sql 
 
 ---
 
@@ -346,7 +350,7 @@ FROM control_inventario.vw_1_informe_inventario;
 
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 1](images\vista_1.png)
+![Consulta vista 1](./images/vista_1.png)
 
 ---
 
@@ -383,7 +387,7 @@ FROM control_inventario.vw_2_valor_inventario;
 
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 2](images\vista_2.png)
+![Consulta vista 2](./images/vista_2.png)
 
 ---
 
@@ -412,7 +416,7 @@ FROM control_inventario.vw_3_valor_total_inventario;
 ```
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 3](images\vista_3.png)
+![Consulta vista 3](./images/vista_3.png)
 
 ---
 
@@ -446,7 +450,7 @@ FROM control_inventario.vw_4_productos_inventario;
 
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 4](images\vista_4.png)
+![Consulta vista 4](./images/vista_4.png)
 
 ---
 
@@ -480,7 +484,7 @@ FROM control_inventario.vw_5_entradas_productos;
 
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 5](images\vista_5.png)
+![Consulta vista 5](./images/vista_5.png)
 
 ---
 
@@ -513,7 +517,7 @@ FROM control_inventario.vw_6_salidas_productos;
 
 **Muestra del resultado de la consulta:**
 
-![Consulta vista 6](images\vista_6.png)
+![Consulta vista 6](./images/vista_6.png)
 
 ---
 
@@ -567,7 +571,7 @@ SELECT fn_1_total_entradas(1);
 
 **Muestra del resultado de la consulta:**
 
-![Consulta función 1](images\funcion_1.png)
+![Consulta función 1](./images/funcion_1.png)
 
 
 
@@ -602,7 +606,7 @@ SELECT fn_2_total_salidas(1);
 
 **Muestra del resultado de la consulta:**
 
-![Consulta función 2](images\funcion_2.png)
+![Consulta función 2](./images/funcion_2.png)
 
 
 ---
@@ -635,7 +639,7 @@ SELECT fn_3_actualizar_ultimo_precio(1);
 
 **Muestra del resultado de la consulta:**
 
-![Consulta función 3](images\funcion_3.png)
+![Consulta función 3](./images/funcion_3.png)
 
 
 ---
@@ -664,7 +668,7 @@ SELECT fn_4_valor_total_inventario();
 
 **Muestra del resultado de la consulta:**
 
-![Consulta función 4](images\funcion_4.png)
+![Consulta función 4](./images/funcion_4.png)
 
 ---
 
@@ -948,15 +952,15 @@ A constinuación, se muestra parte de las pruebas de conexión realizadas:
 
 **Prueba de la conexión para el gerente:**
 
-![prueba conexion-gerente](images\conexion-gerente.png)
+![prueba conexion-gerente](./images/conexion-gerente.png)
 
 **Prueba de la conexión para el jefe de almacén:**
 
-![prueba conexion-jefe-alamacen](images\conexion-jefe-almacen.png)
+![prueba conexion-jefe-alamacen](./images/conexion-jefe-almacen.png)
 
 **Prueba de la conexión para uno de los encargados de almacén:**
 
-![prueba conexion-encargado-10](images\conexion-encargado-10.png)
+![prueba conexion-encargado-10](./images/conexion-encargado-10.png)
 
 
 ---
